@@ -1,0 +1,9 @@
+El robot esta conectado
+Posicion del robot: X: 0.00 Y: 170.00 Z: 120.00 E: 0.00
+
+Actividad: M114
+Inicio de conexion: 14:30:34
+Lista de ordenes:
+com: M114
+res: X: 0.00 Y: 170.00 Z: 120.00 E: 0.00
+

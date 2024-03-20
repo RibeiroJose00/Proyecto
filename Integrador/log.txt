@@ -1,0 +1,4 @@
+Log del servidor
+15:47:05 : Inicio Servidor
+
+15:47:05 : Conectar al servidor : Bienvenido Admin
