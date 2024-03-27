@@ -14,7 +14,6 @@ class RequestHandler(SimpleXMLRPCRequestHandler):
 
 
 class Server:
-
     def __init__(self, direccion, puerto: int, compiler):
         self.direccion = direccion
         self.puerto = puerto
