@@ -14,7 +14,7 @@ class Interfaz(Cmd):
         super(Interfaz, self).__init__()
         self.robot = Robot(0)
         self.compiler = G_compiler(self.robot)
-        self.servidor = Server("192.168.111.168", 4000, self.compiler)
+        self.servidor = Server("localhost", 8000, self.compiler)
         self.conection = 0
         self.compiler.init_log()
         self.compiler.client_connect("Admin", "Admin")
