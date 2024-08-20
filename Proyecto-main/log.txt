@@ -1,0 +1,7 @@
+Log del servidor
+18:09:41 : Inicio Servidor
+
+18:09:41 : Conectar al servidor : Bienvenido Admin
+18:09:55 : Conectar al servidor : Bienvenido 1
+18:10:10 : Conectar : El puerto ya esta abierto o no existe
+18:10:20 : Desconectar : Desconectado del robot

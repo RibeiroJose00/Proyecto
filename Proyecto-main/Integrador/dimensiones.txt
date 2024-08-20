@@ -1,0 +1,72 @@
+BAUD:   115200
+
+
+Longitud del brazo inferior del robot  120.0
+
+Longitud del brazo superior del robot : 120.0
+
+Longitud desde el cojinete superior del brazo al punto medio del efector final en milímetros (valor inicialmente 50.0, pero reemplazado posteriormente en el código).
+
+Coordenada X inicial del robot en el sistema cartesiano:0
+
+Coordenada Y inicial del robot en el sistema cartesiano 240.0
+
+Coordenada Z inicial del robot en el sistema cartesiano: 120
+
+INITIAL_E0: Posición inicial del tope final del motor del riel.
+
+Cantidad de pasos necesarios para que el motor X alcance la posición inicial después del proceso de homing: 665
+
+Cantidad de pasos necesarios para que el motor Y alcance la posición inicial después del proceso de homing:  1390
+
+Cantidad de pasos necesarios para que el motor Z alcance la posición inicial después del proceso de homing:  2450
+
+Tiempo de espera en milisegundos durante el proceso de homing para ralentizar la velocidad 200
+
+Configuración de la cantidad de microsteps para los motores paso a paso 200
+
+Cantidad de pasos por revolución de los motores NEMA17: 200
+
+Cantidad de pasos por milímetro para el motor del riel: 80
+
+Longitud máxima del riel en milímetros:200
+
+Valor de salida cuando se activa el tope final en el eje X: 0
+
+Valor de salida cuando se activa el tope final en el eje Y: 0
+
+Valor de salida cuando se activa el tope final en el eje Z: 0
+
+E0_MIN_INPUT: Valor de salida cuando se activa el tope final en el motor E0: 90
+
+Cantidad de dientes del engranaje del motor 90
+
+Cantidad de dientes del engranaje principal 32
+
+Tiempo en segundos para encender el ventilador:120
+
+BYJ_GRIP_STEPS: Cantidad de pasos para el agarre si se utiliza un motor paso a paso 28BYJ-48: 1200
+
+Grados para agarrar si se utiliza un servo:90
+
+Grados para soltar si se utiliza un servo:0
+
+
+Perfil de velocidad utilizado (0, 1 o 2): 2 APROXIMACIÓN DEL COSENO (ACELERACIÓN TOTAL EN FORMA DE CAMPANA DESDE 0 Y DECELERACIÓN DESDE 0, ADECUADA PARA MOVIMIENTOS DE COMANDO PREESTABLECIDOS)
+
+LOG_LEVEL: Nivel de registro (0, 1 o 2).
+
+Altura mínima del robot en el eje Z -88
+
+Altura máxima del robot en el eje Z 150
+
+Valor del coseno del ángulo mínimo entre los brazos del robot0.791436948
+
+Valor del coseno del ángulo máximo entre los brazos del robot -0.774944489
+
+Valor mínimo de una variable "R" 90.596396946
+
+Valor máximo de una variable "R" 257.853877937
+
+
+
