@@ -3,8 +3,9 @@ import wx.media
 from client import Client
 
 class MainFrame(wx.Frame):
-    def __init__(self, parent, title, client):
-        super(MainFrame, self).__init__(parent=parent, title=title, size=(1280, 720))
+    def __init__(self, *args, **kw):
+        super(MainFrame, self).__init__(*args, **kw, size=(1280, 720))
+       
         # Crear panel principal
         self.panel_ppal = wx.Panel(self)
 
@@ -32,8 +33,8 @@ class MainFrame(wx.Frame):
 
             # Creamos un sub_sizer para los paneles server y robot
         self.sizer_RSMedia = wx.BoxSizer(wx.VERTICAL)
-        self.sizer_RSMedia.Add(self.panel_server, 16, wx.EXPAND|wx.ALL, 5)
-        self.sizer_RSMedia.Add(self.panel_robot, 16, wx.EXPAND|wx.ALL, 5)
+        self.sizer_RSMedia.Add(self.panel_server, 4, wx.EXPAND|wx.ALL, 5)
+        self.sizer_RSMedia.Add(self.panel_robot, 4, wx.EXPAND|wx.ALL, 5)
 
         # Crear panel de comandos
         self.panel_command = wx.Panel(self.panel_ppal, name="Commands")
@@ -100,9 +101,19 @@ class MainFrame(wx.Frame):
 
         # Ventana de streaming
         self.panel_media = wx.Panel(self.panel_ppal, name="Streaming")
-        self.media_ctrl = wx.media.MediaCtrl(self.panel_media)
 
-        self.sizer_RSMedia.Add(self.panel_media, 66, wx.EXPAND|wx.ALL, 5)
+        # self.media = wx.media.MediaCtrl(self.panel_media, style=wx.SIMPLE_BORDER)
+        self.media = wx.StaticBitmap(self.panel_media)
+        # self.button15 = wx.Button(self.panel_media, -1, label="Start", size=(100,-1))
+        # self.button16 = wx.Button(self.panel_media, -1, label="Stop", size=(100,-1))
+
+        self.sizer_media = wx.BoxSizer(wx.VERTICAL)
+        self.sizer_media.Add(self.media, 1, wx.EXPAND|wx.ALL, 5)
+        # self.sizer_media.Add(self.button15, 0, wx.EXPAND|wx.ALL, 5)
+        # self.sizer_media.Add(self.button16, 0, wx.EXPAND|wx.ALL, 5)
+        self.panel_media.SetSizer(self.sizer_media)
+
+        self.sizer_RSMedia.Add(self.panel_media, 30, wx.EXPAND|wx.ALL, 5)
 
         # Crear sizer principal
         self.sizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -131,19 +142,33 @@ class MainFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.CommandButton, self.button14)
         self.Bind(wx.EVT_BUTTON, self.CommandButton, self.button7)
 
+        # Vinculamos los botones del apartado Streaming
+        # self.Bind(wx.EVT_BUTTON, self.MediaButton, self.button15)
+        # self.Bind(wx.EVT_BUTTON, self.MediaButton, self.button16)
+
         # Organizar el sizer principal
         self.panel_ppal.SetSizer(self.sizer)
         self.Show()
+
+        self.client = Client("localhost", 8000, self.update_image)
+
+    def update_image(self, frame):
+        height, width = frame.shape[:2]
+        image = wx.Image(width, height, frame)
+        bitmap = wx.Bitmap(image)
+        self.media.SetBitmap(bitmap)
+        self.panel_media.Refresh()
 
     def ServerButton(self, event):
         label = event.GetEventObject().GetLabel()
         self.text_console.AppendText(f'<< Button {label} pressed\n')
         if label == "Log In":
-            res = client.connect(1)
+            res = self.client.connect(1)
             self.text_console.AppendText(f'>> {res}\n')
+            self.client.connect_to_video_stream()
             pass
         elif label == "Log out":
-            res = client.disconnect()
+            res = self.client.disconnect()
             self.text_console.AppendText(f'>> {res}\n')
             pass
     
@@ -151,11 +176,11 @@ class MainFrame(wx.Frame):
         label = event.GetEventObject().GetLabel()
         self.text_console.AppendText(f'<< Button {label} pressed\n')
         if label == "Connect":
-            res = client.connect_robot()
+            res = self.client.connect_robot()
             self.text_console.AppendText(f'>> {res}\n')
             pass
         elif label == "Disconnect":
-            res = client.disconnect_robot()
+            res = self.client.disconnect_robot()
             self.text_console.AppendText(f'>> {res}\n')
             pass
 
@@ -163,39 +188,39 @@ class MainFrame(wx.Frame):
         label = event.GetEventObject().GetLabel()
         self.text_console.AppendText(f'<< Button {label} pressed\n')
         if label == "Motor: ON":
-            res = client.act_motor()
+            res = self.client.act_motor()
             self.text_console.AppendText(f'>> {res}\n')
             pass
         elif label == "Motor: OFF":
-            res = client.des_motor()
+            res = self.client.des_motor()
             self.text_console.AppendText(f'>> {res}\n')
             pass
         elif label == "Grip: ON":
-            res = client.act_grip()
+            res = self.client.act_grip()
             self.text_console.AppendText(f'>> {res}\n')
             pass
         elif label == "Grip: OFF":
-            res = client.des_grip()
+            res = self.client.des_grip()
             self.text_console.AppendText(f'>> {res}\n')
             pass
         elif label == "Absolute":
-            res = client.coord_mode(0)
+            res = self.client.coord_mode(0)
             self.text_console.AppendText(f'>> {res}\n')
             pass
         elif label == "Relative":
-            res = client.coord_mode(1)
+            res = self.client.coord_mode(1)
             self.text_console.AppendText(f'>> {res}\n')
             pass
         elif label == "Learn mode: ON":
-            res = client.learn(1)
+            res = self.client.learn(1)
             self.text_console.AppendText(f'>> {res}\n')
             pass
         elif label == "Learn mode: OFF":
-            res = client.learn(0)
+            res = self.client.learn(0)
             self.text_console.AppendText(f'>> {res}\n')
             pass
         elif label == "Home":
-            res = client.home()
+            res = self.client.home()
             self.text_console.AppendText(f'>> {res}\n')
             pass
         elif label == "Send":
@@ -204,7 +229,7 @@ class MainFrame(wx.Frame):
             z = self.text3.GetValue()
             v = self.text4.GetValue()
             self.text_console.AppendText(f'<< x= {x}, y= {y}, z= {z}, v= {v}\n')
-            res = client.move(x, y, z, v)
+            res = self.client.move(x, y, z, v)
             self.text_console.AppendText(f'>> {res}\n')
             self.text1.Clear()
             self.text2.Clear()
@@ -215,6 +240,7 @@ class MainFrame(wx.Frame):
 
 if __name__ == '__main__':
     app = wx.App()
-    client = Client("localhost", 8000)
-    frame = MainFrame(None, "Cliente", client)
+    frame = MainFrame(None, title = "Cliente")
     app.MainLoop()
+
+    
